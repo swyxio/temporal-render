@@ -1,6 +1,6 @@
 FROM temporalio/tctl:latest
 FROM temporalio/admin-tools:latest
-FROM temporalio/base-server:latest
+# FROM temporalio/base-server:latest
 FROM temporalio/base-builder:latest AS temporal-builder
 
 # forward env vars from docker env to entrypoint.sh
