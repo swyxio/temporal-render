@@ -39,7 +39,7 @@ COPY custom-auto-setup.sh .
 COPY start-temporal.sh .
 COPY entrypoint.sh .
 # from base-builder - need it for temporal-server binary
-COPY --from=temporalio/base-server:latest /temporal/temporal-server /usr/local/bin
+COPY --from=temporalio/base-server:latest /usr/local/bin/temporal-server /usr/local/bin
 
 RUN ./entrypoint.sh
 CMD ["entrypoint.sh"]
