@@ -14,10 +14,9 @@ services:
       name: temporaltestdb
       property: port
   - key: DBNAME
-    value: temporaltestdb_fxcj # must hardcode because render adds a suffix to this thing
-#     fromDatabase:
-#       name: temporaltestdb
-#       property: user
+    fromDatabase:
+      name: temporaltestdb
+      property: database # need the "unfriendly name from render in order to connect"
   - key: POSTGRES_USER
     fromDatabase:
       name: temporaltestdb
