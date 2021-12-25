@@ -1,5 +1,6 @@
 FROM temporalio/base-server:latest
 FROM temporalio/tctl:latest
+FROM temporalio/admin-tools:latest
 
 # forward env vars from docker env to entrypoint.sh
 ARG DB_PORT
