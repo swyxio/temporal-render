@@ -1,6 +1,6 @@
+FROM temporalio/base-server:latest
 FROM temporalio/tctl:latest
 FROM temporalio/admin-tools:latest
-FROM temporalio/base-server:latest
 # FROM temporalio/base-builder:1.5.0 # useless - doesnt seem to have temporal-server 
 
 # forward env vars from docker env to entrypoint.sh
