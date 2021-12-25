@@ -35,6 +35,7 @@ ENV TEMPORAL_HOME=.
 
 # actually do work
 COPY custom-auto-setup.sh .
+COPY start-temporal.sh .
 COPY entrypoint.sh .
 RUN ./entrypoint.sh
 CMD ["entrypoint.sh"]
