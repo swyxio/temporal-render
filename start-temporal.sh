@@ -15,4 +15,4 @@ fi
 # ERROR: start command doesn't support arguments. Use --service flag instead.
 # exec temporal-server --env docker start "${SERVICE_FLAGS[@]}"
 
-exec temporal-server --service=frontend --service=history --service=matching --service=workflow
+exec temporal-server --env docker start "--service=frontend --service=history --service=matching --service=workflow"
