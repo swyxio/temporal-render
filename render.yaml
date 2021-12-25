@@ -2,6 +2,7 @@
 
 databases:
 - name: temporaltestdb
+  user: temporaltestdb_r91z # must hardcode this so that we skip db creation in auto-setup.sh
 services:
 - type: web
   name: temporaltestserver
@@ -16,9 +17,10 @@ services:
       name: temporaltestdb
       property: port
   - key: DBNAME
-    fromDatabase:
-      name: temporaltestdb
-      property: user  # must be same as POSTGRES_USER so we skip db creation in auto-setup.sh
+    value: temporaltestdb_r91z # must hardcode this so that temporal-sql-tool can find it later
+#     fromDatabase:
+#       name: temporaltestdb
+#       property: user  # must be same as POSTGRES_USER so we skip db creation in auto-setup.sh
   - key: POSTGRES_USER
     fromDatabase:
       name: temporaltestdb
