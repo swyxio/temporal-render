@@ -1,7 +1,7 @@
 FROM temporalio/tctl:latest
 FROM temporalio/admin-tools:latest
 FROM temporalio/base-server:latest
-# FROM temporalio/base-builder:latest # doesnt work - circular dep
+# FROM temporalio/base-builder:1.5.0 # useless - doesnt seem to have temporal-server 
 
 # forward env vars from docker env to entrypoint.sh
 ARG DB_PORT
@@ -38,8 +38,22 @@ ENV TEMPORAL_HOME=.
 COPY custom-auto-setup.sh .
 COPY start-temporal.sh .
 COPY entrypoint.sh .
-# from base-builder - need it for temporal-server binary
-COPY --from=temporalio/base-server:latest /usr/local/bin/temporal-server /usr/local/bin
+COPY dl_to_stdout.sh .
+#### DOESNT WORK
+# # from base-builder - need it for temporal-server binary
+# COPY --from=temporalio/base-server:latest /usr/local/bin/temporal-server /usr/local/bin
+
+# Install Temporal server
+# https://github.com/mediacloud/backend/blob/26c458ff3336d71b766d51a57edca6d50364a52e/apps/temporal-server/Dockerfile
+RUN \
+    # Keep version that's being used in sync with temporal-postgresql
+    mkdir -p /var/tmp/temporal/ && \
+    /dl_to_stdout.sh "https://github.com/temporalio/temporal/releases/download/v1.14.1/temporal_1.14.1_linux_amd64.tar.gz" | \
+        tar -zx -C /var/tmp/temporal/ && \
+    mv /var/tmp/temporal/temporal-server /var/tmp/temporal/tctl /usr/bin/ && \
+    cd / && \
+    rm -rf /var/tmp/temporal/ && \
+    true
 
 RUN ./entrypoint.sh
 CMD ["entrypoint.sh"]
