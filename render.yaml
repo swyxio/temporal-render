@@ -6,7 +6,7 @@ services:
 - type: web
   name: temporaltestserver
   env: docker
-  dockerCommand: docker run temporalio/auto-setup:1.14.0
+#   dockerCommand: docker run temporalio/auto-setup:1.14.0
 #   autoDeploy: false
   envVars:
   - key: DB
