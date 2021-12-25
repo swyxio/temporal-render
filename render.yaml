@@ -14,7 +14,6 @@ services:
   - key: DB_PORT
     fromService:
       name: temporaltestdb
-      type: pserv
       property: port
   - key: POSTGRES_USER
     value: temporaltestdb_user
