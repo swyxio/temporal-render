@@ -12,9 +12,7 @@ services:
   - key: DB
     value: postgresql
   - key: DBNAME
-    fromDatabase:
-      name: temporaltestdb
-      property: database
+    value: temporaltestdb
   - key: DB_PORT
     fromDatabase:
       name: temporaltestdb
