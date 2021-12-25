@@ -17,17 +17,17 @@ services:
       type: pserv
       property: port
   - key: POSTGRES_USER
-#     value: temporal
-    fromService:
-      name: temporaltestdb
-      type: pserv
-      property: user
+    value: temporal
+#     fromService:
+#       name: temporaltestdb
+#       type: pserv
+#       property: user
   - key: POSTGRES_PWD
-#     value: temporal
-    fromService:
-      name: temporaltestdb
-      type: pserv
-      property: password
+    value: temporal
+#     fromService:
+#       name: temporaltestdb
+#       type: pserv
+#       property: password
   - key: POSTGRES_SEEDS
     value: postgresql
   - key: DYNAMIC_CONFIG_FILE_PATH
