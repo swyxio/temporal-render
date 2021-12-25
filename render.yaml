@@ -12,21 +12,22 @@ services:
   - key: DB
     value: postgresql
   - key: DB_PORT
-    fromService:
+    fromDatabase:
       name: temporaltestdb
+#       type: pserv
       property: port
   - key: POSTGRES_USER
     value: temporaltestdb_user
-#     fromService:
-#       name: temporaltestdb
+    fromDatabase:
+      name: temporaltestdb
 #       type: pserv
-#       property: user
+      property: user
   - key: POSTGRES_PWD
     value: bkDh78Lq79rUFtCK43KQ2SUD7v4hOGXb
-#     fromService:
-#       name: temporaltestdb
+    fromDatabase:
+      name: temporaltestdb
 #       type: pserv
-#       property: password
+      property: password
   - key: POSTGRES_SEEDS
     value: postgresql
   - key: DYNAMIC_CONFIG_FILE_PATH
