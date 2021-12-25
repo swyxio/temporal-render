@@ -74,34 +74,6 @@ setup_schema() {
     setup_postgres_schema
 }
 
-# === Server setup ===
-
-register_default_namespace() {
-    echo "Registering default namespace: ${DEFAULT_NAMESPACE}."
-    if ! tctl --ns "${DEFAULT_NAMESPACE}" namespace describe; then
-        echo "Default namespace ${DEFAULT_NAMESPACE} not found. Creating..."
-        tctl --ns "${DEFAULT_NAMESPACE}" namespace register --rd "${DEFAULT_NAMESPACE_RETENTION}" --desc "Default namespace for Temporal Server."
-        echo "Default namespace ${DEFAULT_NAMESPACE} registration complete."
-    else
-        echo "Default namespace ${DEFAULT_NAMESPACE} already registered."
-    fi
-}
-
-setup_server(){
-    echo "Temporal CLI address: ${TEMPORAL_CLI_ADDRESS}."
-
-    until tctl cluster health | grep SERVING; do
-        echo "Waiting for Temporal server to start..."
-        sleep 1
-    done
-    echo "Temporal server started."
-
-    if [ "${SKIP_DEFAULT_NAMESPACE_CREATION}" != true ]; then
-        register_default_namespace
-    fi
-
-}
-
 # === Main ===
 
 echo 'SWYX: starting main'

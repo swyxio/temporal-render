@@ -16,3 +16,35 @@ fi
 # exec temporal-server --env docker start "${SERVICE_FLAGS[@]}"
 
 exec temporal-server --env docker start "--service=frontend --service=history --service=matching --service=workflow"
+
+# === Server setup ===
+
+register_default_namespace() {
+    echo "Registering default namespace: ${DEFAULT_NAMESPACE}."
+    if ! tctl --ns "${DEFAULT_NAMESPACE}" namespace describe; then
+        echo "Default namespace ${DEFAULT_NAMESPACE} not found. Creating..."
+        tctl --ns "${DEFAULT_NAMESPACE}" namespace register --rd "${DEFAULT_NAMESPACE_RETENTION}" --desc "Default namespace for Temporal Server."
+        echo "Default namespace ${DEFAULT_NAMESPACE} registration complete."
+    else
+        echo "Default namespace ${DEFAULT_NAMESPACE} already registered."
+    fi
+}
+
+setup_server(){
+    echo "Temporal CLI address: ${TEMPORAL_CLI_ADDRESS}."
+
+    until tctl cluster health | grep SERVING; do
+        echo "Waiting for Temporal server to start..."
+        sleep 1
+    done
+    echo "Temporal server started."
+
+    if [ "${SKIP_DEFAULT_NAMESPACE_CREATION}" != true ]; then
+        register_default_namespace
+    fi
+
+}
+
+
+# Run this func in parallel process. It will wait for server to start and then run required steps.
+setup_server &
