@@ -1,4 +1,4 @@
-FROM temporalio/base-server:1.14.1
+FROM temporalio/base-server:latest
 
 # # https://github.com/arniebilloo/test/blob/8e52f7b1647c7b0f55b67f432358936f863ae1a4/multiple.Dockerfile
 # WORKDIR /etc/temporal
