@@ -24,5 +24,5 @@ echo "hi from entrypoint.sh"
 
 
 # Automatically setup Temporal Server (databases, Elasticsearch, default namespace) if "autosetup" is passed as an argument.
-exec ./custom-auto-setup.sh
-exec ./start-temporal.sh
+exec ./custom-auto-setup.sh & ./start-temporal.sh
+# must start in parallel...

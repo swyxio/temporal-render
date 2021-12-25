@@ -84,3 +84,4 @@ if [ "${SKIP_SCHEMA_SETUP}" != true ]; then
     setup_schema
 fi
 
+echo 'done with starting main'
