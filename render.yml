@@ -1,0 +1,50 @@
+# simple translation of https://github.com/temporalio/docker-compose/blob/main/docker-compose.yml
+
+databases:
+- name: temporaltestdb
+services:
+- type: web
+  name: temporaltestserver
+  env: docker
+  dockerCommand: docker run temporalio/auto-setup:1.14.0
+#   autoDeploy: false
+  envVars:
+  - key: DB
+    value: postgresql
+  - key: DB_PORT
+    fromService:
+      name: temporaltestdb
+      type: pserv
+      property: port
+  - key: POSTGRES_USER
+#     value: temporal
+    fromService:
+      name: temporaltestdb
+      type: pserv
+      property: user
+  - key: POSTGRES_PWD
+#     value: temporal
+    fromService:
+      name: temporaltestdb
+      type: pserv
+      property: password
+  - key: POSTGRES_SEEDS
+    value: postgresql
+  - key: DYNAMIC_CONFIG_FILE_PATH
+    value: config/dynamicconfig/development_es.yaml
+  - key: LOG_LEVEL
+    value: debug,info
+- type: web
+  name: temporaltestweb
+  env: docker
+  dockerCommand: docker run temporalio/web:1.13.0
+#   autoDeploy: false
+  envVars:
+  - key: TEMPORAL_GRPC_ENDPOINT
+#     value: temporal:7233
+    fromService:
+      name: temporaltestserver
+      type: web
+      property: hostport # this is a guess...
+  - key: TEMPORAL_PERMIT_WRITE_API
+    value: true
