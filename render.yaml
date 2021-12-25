@@ -17,13 +17,13 @@ services:
       type: pserv
       property: port
   - key: POSTGRES_USER
-    value: temporal
+    value: temporaltestdb_user
 #     fromService:
 #       name: temporaltestdb
 #       type: pserv
 #       property: user
   - key: POSTGRES_PWD
-    value: temporal
+    value: bkDh78Lq79rUFtCK43KQ2SUD7v4hOGXb
 #     fromService:
 #       name: temporaltestdb
 #       type: pserv
