@@ -1,6 +1,7 @@
 FROM temporalio/tctl:latest
 FROM temporalio/admin-tools:latest
-FROM temporalio/server:latest
+FROM temporalio/base-server:latest
+FROM temporalio/base-builder:latest AS temporal-builder
 
 # forward env vars from docker env to entrypoint.sh
 ARG DB_PORT
@@ -37,5 +38,8 @@ ENV TEMPORAL_HOME=.
 COPY custom-auto-setup.sh .
 COPY start-temporal.sh .
 COPY entrypoint.sh .
+# from base-builder - need it for temporal-server binary
+COPY --from=temporal-builder /temporal/temporal-server /usr/local/bin
+
 RUN ./entrypoint.sh
 CMD ["entrypoint.sh"]
