@@ -14,21 +14,19 @@ services:
   - key: DB_PORT
     fromDatabase:
       name: temporaltestdb
-#       type: pserv
       property: port
   - key: POSTGRES_USER
-#     value: temporaltestdb_user
     fromDatabase:
       name: temporaltestdb
-#       type: pserv
       property: user
   - key: POSTGRES_PWD
     fromDatabase:
       name: temporaltestdb
-#       type: pserv
       property: password
   - key: POSTGRES_SEEDS
-    value: postgresql
+    fromDatabase:
+      name: temporaltestdb
+      property: host
   - key: DYNAMIC_CONFIG_FILE_PATH
     value: config/dynamicconfig/development_es.yaml
   - key: LOG_LEVEL
