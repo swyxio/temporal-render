@@ -56,7 +56,9 @@ setup_postgres_schema() {
 #     if [ "${DBNAME}" != "${POSTGRES_USER}" ]; then
 #         temporal-sql-tool --plugin postgres --ep "${POSTGRES_SEEDS}" -u "${POSTGRES_USER}" -p "${DB_PORT}" create --db "${DBNAME}"
 #     fi
+    echo 'setup_postgres_schema'
     temporal-sql-tool --plugin postgres --ep "${POSTGRES_SEEDS}" -u "${POSTGRES_USER}" -p "${DB_PORT}" --db "${DBNAME}" setup-schema -v 0.0
+    echo 'update_postgres_schema'
     temporal-sql-tool --plugin postgres --ep "${POSTGRES_SEEDS}" -u "${POSTGRES_USER}" -p "${DB_PORT}" --db "${DBNAME}" update-schema -d "${SCHEMA_DIR}"
     VISIBILITY_SCHEMA_DIR=${TEMPORAL_HOME}/schema/postgresql/v96/visibility/versioned
     if [ "${VISIBILITY_DBNAME}" != "${POSTGRES_USER}" ]; then
@@ -101,7 +103,9 @@ setup_server(){
 
 # === Main ===
 
+echo 'SWYX: starting main'
 if [ "${SKIP_SCHEMA_SETUP}" != true ]; then
+    echo 'SWYX: not skipping setup'
     validate_db_env
     wait_for_db
     setup_schema
