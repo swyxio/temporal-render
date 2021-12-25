@@ -84,5 +84,3 @@ if [ "${SKIP_SCHEMA_SETUP}" != true ]; then
     setup_schema
 fi
 
-# Run this func in parallel process. It will wait for server to start and then run required steps.
-setup_server &
