@@ -14,5 +14,5 @@ FROM temporalio/base-server:latest
 # actually do work
 COPY custom-auto-setup.sh .
 COPY entrypoint.sh .
-RUN entrypoint.sh
+RUN ./entrypoint.sh
 CMD ["entrypoint.sh"]
