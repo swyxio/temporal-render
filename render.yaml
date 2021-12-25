@@ -11,12 +11,14 @@ services:
   envVars:
   - key: DB
     value: postgresql
-  - key: DBNAME
-    value: temporaltestdb
   - key: DB_PORT
     fromDatabase:
       name: temporaltestdb
       property: port
+  - key: DBNAME
+    fromDatabase:
+      name: temporaltestdb
+      property: user  # must be same as POSTGRES_USER so we skip db creation in auto-setup.sh
   - key: POSTGRES_USER
     fromDatabase:
       name: temporaltestdb
