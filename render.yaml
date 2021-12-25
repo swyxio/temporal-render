@@ -11,6 +11,10 @@ services:
   envVars:
   - key: DB
     value: postgresql
+  - key: DBNAME
+    fromDatabase:
+      name: temporaltestdb
+      property: database
   - key: DB_PORT
     fromDatabase:
       name: temporaltestdb
