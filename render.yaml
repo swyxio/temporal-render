@@ -6,6 +6,7 @@ services:
 - type: web
   name: temporaltestserver
   env: docker
+  dockerCommand: ./entrypoint.sh
   envVars:
   - key: DB
     value: postgresql
