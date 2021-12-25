@@ -12,4 +12,7 @@ if [ -z "${SERVICE_FLAGS}" ] && [ -n "${SERVICES}" ]; then
     for i in "${!SERVICE_FLAGS[@]}"; do SERVICE_FLAGS[$i]="--service=${SERVICE_FLAGS[$i]}"; done
 fi
 
-exec temporal-server --env docker start "${SERVICE_FLAGS[@]}"
+# ERROR: start command doesn't support arguments. Use --service flag instead.
+# exec temporal-server --env docker start "${SERVICE_FLAGS[@]}"
+
+exec temporal-server --service=frontend --service=history --service=matching --service=workflow
