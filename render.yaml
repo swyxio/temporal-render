@@ -6,7 +6,7 @@ services:
 - type: web
   name: temporaltestserver
   env: docker
-  dockerCommand: ./entrypoint.sh
+  # dockerCommand: ./entrypoint.sh
   envVars:
   - key: DB_PORT
     fromDatabase:
