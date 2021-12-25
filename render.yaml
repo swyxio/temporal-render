@@ -2,14 +2,10 @@
 
 databases:
 - name: temporaltestdb
-  databaseName: temporaltestdb
-  user: temporaltestdb # must hardcode this so that we skip db creation in auto-setup.sh
 services:
 - type: web
   name: temporaltestserver
   env: docker
-#   dockerCommand: docker run temporalio/auto-setup:1.14.0
-#   autoDeploy: false
   envVars:
   - key: DB
     value: postgresql
@@ -18,10 +14,9 @@ services:
       name: temporaltestdb
       property: port
   - key: DBNAME
-#     value: temporaltestdb_r91z # must hardcode this so that temporal-sql-tool can find it later
     fromDatabase:
       name: temporaltestdb
-      property: user  # must be same as POSTGRES_USER so we skip db creation in auto-setup.sh
+      property: user
   - key: POSTGRES_USER
     fromDatabase:
       name: temporaltestdb
@@ -42,7 +37,6 @@ services:
   name: temporaltestweb
   env: docker
   dockerCommand: docker run temporalio/web:1.13.0
-#   autoDeploy: false
   envVars:
   - key: TEMPORAL_GRPC_ENDPOINT
 #     value: temporal:7233
