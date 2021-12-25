@@ -2,6 +2,8 @@
 
 set -eu -o pipefail
 
+echo "hi from entrypoint.sh"
+
 export BIND_ON_IP="${BIND_ON_IP:-$(hostname -i)}"
 
 if [[ "${BIND_ON_IP}" =~ ":" ]]; then
