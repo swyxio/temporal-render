@@ -8,8 +8,6 @@ services:
   env: docker
   dockerCommand: ./entrypoint.sh
   envVars:
-  - key: DB
-    value: postgresql
   - key: DB_PORT
     fromDatabase:
       name: temporaltestdb
