@@ -1,47 +1,171 @@
-# simple translation of https://github.com/temporalio/docker-compose/blob/main/docker-compose.yml
+services:
+  - type: pserv
+    name: temporal-history
+    autoDeploy: false
+    plan: Standard
+    env: docker
+    dockerfilePath: ./temporal/server/Dockerfile
+    dockerContext: ./temporal/server
+    envVars:
+      - key: STATSD_ENDPOINT
+        value: temporal-datadog-agent:8125
+      - key: SERVICES
+        value: history
+      - key: DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: VISIBILITY_DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/temporal/dynamicconfig/development.yaml
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: temporal
+          property: user
+      - key: POSTGRES_PWD
+        fromDatabase:
+          name: temporal
+          property: password
+      - key: POSTGRES_SEEDS
+        fromDatabase:
+          name: temporal
+          property: host
+  - type: pserv
+    autoDeploy: false
+    name: temporal-frontend
+    env: docker
+    dockerfilePath: ./temporal/server/Dockerfile
+    dockerContext: ./temporal/server
+    envVars:
+      - key: STATSD_ENDPOINT
+        value: temporal-datadog-agent:8125
+      - key: SERVICES
+        value: frontend
+      - key: DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: VISIBILITY_DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/temporal/dynamicconfig/development.yaml
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: temporal
+          property: user
+      - key: POSTGRES_PWD
+        fromDatabase:
+          name: temporal
+          property: password
+      - key: POSTGRES_SEEDS
+        fromDatabase:
+          name: temporal
+          property: host
+  - type: pserv
+    autoDeploy: false
+    name: temporal-matching
+    env: docker
+    dockerfilePath: ./temporal/server/Dockerfile
+    dockerContext: ./temporal/server
+    envVars:
+      - key: STATSD_ENDPOINT
+        value: temporal-datadog-agent:8125
+      - key: SERVICES
+        value: matching
+      - key: DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: VISIBILITY_DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/temporal/dynamicconfig/development.yaml
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: temporal
+          property: user
+      - key: POSTGRES_PWD
+        fromDatabase:
+          name: temporal
+          property: password
+      - key: POSTGRES_SEEDS
+        fromDatabase:
+          name: temporal
+          property: host
+  - type: pserv
+    autoDeploy: false
+    name: temporal-srv-worker
+    env: docker
+    dockerfilePath: ./temporal/server/Dockerfile
+    dockerContext: ./temporal/server
+    envVars:
+      - key: STATSD_ENDPOINT
+        value: temporal-datadog-agent:8125
+      - key: PUBLIC_FRONTEND_ADDRESS
+        value: temporal-frontend:7233
+      - key: SERVICES
+        value: worker
+      - key: DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: VISIBILITY_DBNAME
+        fromDatabase:
+          name: temporal
+          property: database
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/temporal/dynamicconfig/development.yaml
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: temporal
+          property: user
+      - key: POSTGRES_PWD
+        fromDatabase:
+          name: temporal
+          property: password
+      - key: POSTGRES_SEEDS
+        fromDatabase:
+          name: temporal
+          property: host
+  - type: pserv
+    autoDeploy: false
+    name: temporal-datadog-agent
+    env: docker
+    dockerfilePath: ./temporal/datadog-agent/Dockerfile
+    dockerContext: ./temporal/datadog-agent
+    envVars:
+      - key: DD_API_KEY
+        sync: false
+  - type: web
+    autoDeploy: false
+    name: temporal-ui
+    env: docker
+    dockerfilePath: ./temporal/ui/Dockerfile
+    dockerContext: ./temporal/ui
+    envVars:
+      - key: TEMPORAL_GRPC_ENDPOINT
+        value: temporal-frontend:7233
+      - key: TEMPORAL_CONFIG_PATH
+        value: /etc/secrets/config.yml
+  - type: worker
+    autoDeploy: false
+    name: temporal-admin-tools
+    env: docker
+    dockerfilePath: ./temporal/admin-tools/Dockerfile
+    dockerContext: ./temporal/admin-tools
+    envVars:
+      - key: TEMPORAL_CLI_ADDRESS
+        value: temporal-frontend:7233
 
 databases:
-- name: temporaltestdb
-services:
-- type: web
-  name: temporaltestserver
-  env: docker
-  # dockerCommand: ./entrypoint.sh
-  envVars:
-  - key: DB_PORT
-    fromDatabase:
-      name: temporaltestdb
-      property: port
-  - key: DBNAME
-    fromDatabase:
-      name: temporaltestdb
-      property: database # need the "unfriendly name from render in order to connect"
-  - key: POSTGRES_USER
-    fromDatabase:
-      name: temporaltestdb
-      property: user
-  - key: POSTGRES_PWD
-    fromDatabase:
-      name: temporaltestdb
-      property: password
-  - key: POSTGRES_SEEDS
-    fromDatabase:
-      name: temporaltestdb
-      property: host
-  - key: DYNAMIC_CONFIG_FILE_PATH
-    value: config/dynamicconfig/development_es.yaml
-  - key: LOG_LEVEL
-    value: debug,info
-- type: web
-  name: temporaltestweb
-  env: docker
-  dockerCommand: docker run temporalio/web:1.13.0
-  envVars:
-  - key: TEMPORAL_GRPC_ENDPOINT
-#     value: temporal:7233
-    fromService:
-      name: temporaltestserver
-      type: web
-      property: hostport # this is a guess...
-  - key: TEMPORAL_PERMIT_WRITE_API
-    value: true
+  - name: temporal
+    databaseName: temporal
+    user: temporal
+    plan: standard
