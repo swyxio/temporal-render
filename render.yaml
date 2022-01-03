@@ -19,8 +19,8 @@ services:
         fromDatabase:
           name: temporal
           property: database
-      # - key: DYNAMIC_CONFIG_FILE_PATH
-      #   value: /etc/temporal/dynamicconfig/development.yaml
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/secrets/dynamicconfig.yaml
       - key: POSTGRES_USER
         fromDatabase:
           name: temporal
@@ -52,8 +52,8 @@ services:
         fromDatabase:
           name: temporal
           property: database
-      # - key: DYNAMIC_CONFIG_FILE_PATH
-      #   value: /etc/secrets/development.yaml # tried to use Render Secret Files, didnt work "permission denied"
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/secrets/dynamicconfig.yaml
       - key: POSTGRES_USER
         fromDatabase:
           name: temporal
@@ -85,8 +85,8 @@ services:
         fromDatabase:
           name: temporal
           property: database
-      # - key: DYNAMIC_CONFIG_FILE_PATH
-      #   value: /etc/temporal/dynamicconfig/development.yaml
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/secrets/dynamicconfig.yaml
       - key: POSTGRES_USER
         fromDatabase:
           name: temporal
@@ -120,8 +120,8 @@ services:
         fromDatabase:
           name: temporal
           property: database
-      # - key: DYNAMIC_CONFIG_FILE_PATH
-      #   value: /etc/temporal/dynamicconfig/development.yaml
+      - key: DYNAMIC_CONFIG_FILE_PATH
+        value: /etc/secrets/dynamicconfig.yaml
       - key: POSTGRES_USER
         fromDatabase:
           name: temporal
