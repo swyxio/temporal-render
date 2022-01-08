@@ -5,7 +5,7 @@ services:
     plan: Standard
     env: docker
     dockerfilePath: ./temporal/server/Dockerfile
-    dockerContext: ./temporal/server
+    dockerContext: ./temporal
     envVars:
     - key: STATSD_ENDPOINT
       fromService:
@@ -40,7 +40,7 @@ services:
     name: temporal-frontend
     env: docker
     dockerfilePath: ./temporal/server/Dockerfile
-    dockerContext: ./temporal/server
+    dockerContext: ./temporal
     envVars:
     - key: STATSD_ENDPOINT
       fromService:
@@ -75,7 +75,7 @@ services:
     name: temporal-matching
     env: docker
     dockerfilePath: ./temporal/server/Dockerfile
-    dockerContext: ./temporal/server
+    dockerContext: ./temporal
     envVars:
     - key: STATSD_ENDPOINT
       fromService:
@@ -110,7 +110,7 @@ services:
     name: temporal-srv-worker
     env: docker
     dockerfilePath: ./temporal/server/Dockerfile
-    dockerContext: ./temporal/server
+    dockerContext: ./temporal
     envVars:
     - key: STATSD_ENDPOINT
       fromService:
@@ -149,8 +149,8 @@ services:
     autoDeploy: false
     name: temporal-datadog-agent
     env: docker
-    dockerfilePath: ./temporal/datadog-agent/Dockerfile
-    dockerContext: ./temporal/datadog-agent
+    dockerfilePath: ./datadog-agent/Dockerfile
+    dockerContext: ./datadog-agent
     envVars:
     - key: DD_API_KEY
       sync: false
@@ -159,7 +159,7 @@ services:
     name: temporal-ui
     env: docker
     dockerfilePath: ./temporal/ui/Dockerfile
-    dockerContext: ./temporal/ui
+    dockerContext: ./temporal
     envVars:
     - key: TEMPORAL_GRPC_ENDPOINT
       fromService:

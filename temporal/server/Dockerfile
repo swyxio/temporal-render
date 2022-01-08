@@ -6,4 +6,5 @@ FROM temporalio/server:latest
 ENV DB=postgresql
 ENV SQL_TLS_ENABLED=true
 
-COPY temporal/config/dynamicconfig.yaml /etc/temporal/dynamicconfig.yaml
+# uses Docker context $ROOT/temporal
+COPY config/dynamicconfig.yaml /etc/temporal/dynamicconfig.yaml
