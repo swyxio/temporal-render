@@ -204,9 +204,9 @@ envVarGroups:
 - name: dynamic-config
   envVars:
   - key: TEMPORAL_CONFIG_PATH
-    value: /etc/secrets/dynamicconfig.yaml
+    value: /etc/temporal/dynamicconfig.yaml
   - key: DYNAMIC_CONFIG_FILE_PATH
-    value: /etc/secrets/dynamicconfig.yaml
+    value: /etc/temporal/dynamicconfig.yaml
 
 databases:
   - name: temporal
