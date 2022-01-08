@@ -174,28 +174,31 @@ services:
     dockerfilePath: ./temporal/admin-tools/Dockerfile
     dockerContext: ./temporal/admin-tools
     envVars:
-    - key: SQL_DATABASE
+    - key: DBNAME
       fromDatabase:
         name: temporal
         property: database
-    - key: SQL_USER
+    - key: VISIBILITY_DBNAME
       fromDatabase:
         name: temporal
-        property: user
-    - key: SQL_PASSWORD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: SQL_HOST
-      fromDatabase:
-        name: temporal
-        property: host
-    - key: SQL_PORT
+        property: database
+    - key: DB_PORT
       fromDatabase:
         name: temporal
         property: port
-    - key: SCHEMA_VERSION
-      value: "1.7"
+    - key: POSTGRES_USER
+      fromDatabase:
+        name: temporal
+        property: user
+    - key: POSTGRES_PWD
+      fromDatabase:
+        name: temporal
+        property: password
+    - key: POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal
+        property: host
+    - fromGroup: dynamic-config
 
 envVarGroups:
 - name: dynamic-config
