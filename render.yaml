@@ -195,7 +195,7 @@ services:
         name: temporal
         property: port
     - key: SCHEMA_VERSION
-      value: "0.0"
+      value: "1.7"
 
 envVarGroups:
 - name: dynamic-config
