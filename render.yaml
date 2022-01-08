@@ -174,11 +174,28 @@ services:
     dockerfilePath: ./temporal/admin-tools/Dockerfile
     dockerContext: ./temporal/admin-tools
     envVars:
-    - key: TEMPORAL_CLI_ADDRESS
-      fromService:
-        name: temporal-frontend
-        type: pserv
-        property: hostport
+    - key: SQL_DATABASE
+      fromDatabase:
+        name: temporal
+        property: database
+    - key: SQL_USER
+      fromDatabase:
+        name: temporal
+        property: user
+    - key: SQL_PASSWORD
+      fromDatabase:
+        name: temporal
+        property: password
+    - key: SQL_HOST
+      fromDatabase:
+        name: temporal
+        property: host
+    - key: SQL_PORT
+      fromDatabase:
+        name: temporal
+        property: port
+    - key: SCHEMA_VERSION
+      value: "0.0"
 
 envVarGroups:
 - name: dynamic-config
