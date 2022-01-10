@@ -14,27 +14,9 @@ services:
         property: hostport
     - key: SERVICES
       value: history
-    - key: DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: VISIBILITY_DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
-        property: host
     - fromGroup: dynamic-config
+    - fromGroup: db-vars
+    - fromGroup: visibility-db-vars
   - type: pserv
     autoDeploy: false
     name: temporal-frontend
@@ -49,27 +31,9 @@ services:
         property: hostport
     - key: SERVICES
       value: frontend
-    - key: DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: VISIBILITY_DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
-        property: host
     - fromGroup: dynamic-config
+    - fromGroup: db-vars
+    - fromGroup: visibility-db-vars
   - type: pserv
     autoDeploy: false
     name: temporal-matching
@@ -84,27 +48,9 @@ services:
         property: hostport
     - key: SERVICES
       value: matching
-    - key: DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: VISIBILITY_DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
-        property: host
     - fromGroup: dynamic-config
+    - fromGroup: db-vars
+    - fromGroup: visibility-db-vars
   - type: pserv
     autoDeploy: false
     name: temporal-srv-worker
@@ -117,34 +63,16 @@ services:
         name: temporal-datadog-agent
         type: pserv
         property: hostport
-#     - key: PUBLIC_FRONTEND_ADDRESS
-#       fromService:
-#         name: temporal-frontend
-#         type: pserv
-#         property: hostport
+    - key: PUBLIC_FRONTEND_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: pserv
+        property: hostport
     - key: SERVICES
       value: worker
-    - key: DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: VISIBILITY_DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
-        property: host
     - fromGroup: dynamic-config
+    - fromGroup: db-vars
+    - fromGroup: visibility-db-vars
   - type: pserv
     autoDeploy: false
     name: temporal-datadog-agent
@@ -174,11 +102,20 @@ services:
     dockerfilePath: ./temporal/admin-tools/Dockerfile
     dockerContext: ./temporal/admin-tools
     envVars:
+    - fromGroup: dynamic-config
+    - fromGroup: db-vars
+    - fromGroup: visibility-db-vars
+
+envVarGroups:
+- name: dynamic-config
+  envVars:
+  - key: TEMPORAL_CONFIG_PATH
+    value: /etc/temporal/dynamicconfig.yaml
+  - key: DYNAMIC_CONFIG_FILE_PATH
+    value: /etc/temporal/dynamicconfig.yaml
+- name: db-vars
+  envVars:
     - key: DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: VISIBILITY_DBNAME
       fromDatabase:
         name: temporal
         property: database
@@ -198,18 +135,35 @@ services:
       fromDatabase:
         name: temporal
         property: host
-    - fromGroup: dynamic-config
-
-envVarGroups:
-- name: dynamic-config
+- name: visibility-db-vars
   envVars:
-  - key: TEMPORAL_CONFIG_PATH
-    value: /etc/temporal/dynamicconfig.yaml
-  - key: DYNAMIC_CONFIG_FILE_PATH
-    value: /etc/temporal/dynamicconfig.yaml
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporal-visibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporal-visibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporal-visibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporal-visibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal-visibility
+        property: host
 
 databases:
   - name: temporal
     databaseName: temporal
     user: temporal
+    plan: standard
+  - name: temporal-visibility
+    databaseName: temporal-visibility
+    user: temporal-visibility
     plan: standard

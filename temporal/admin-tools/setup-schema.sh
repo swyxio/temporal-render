@@ -7,8 +7,8 @@ temporal-sql-tool --plugin postgres --endpoint "${POSTGRES_SEEDS}" --user "${POS
 temporal-sql-tool --plugin postgres --endpoint "${POSTGRES_SEEDS}" --user "${POSTGRES_USER}" --password "$POSTGRES_PWD" --port "${DB_PORT}" --db "${DBNAME}" update-schema -d "${SCHEMA_DIR}"
 VISIBILITY_SCHEMA_DIR=${TEMPORAL_HOME}/schema/postgresql/v96/visibility/versioned
 
-temporal-sql-tool --plugin postgres --endpoint "${POSTGRES_SEEDS}" --user "${POSTGRES_USER}" --password "$POSTGRES_PWD" --port "${DB_PORT}" --db "${VISIBILITY_DBNAME}" setup-schema -v 0.0
-temporal-sql-tool --plugin postgres --endpoint "${POSTGRES_SEEDS}" --user "${POSTGRES_USER}" --password "$POSTGRES_PWD" --port "${DB_PORT}" --db "${VISIBILITY_DBNAME}" update-schema -d "${VISIBILITY_SCHEMA_DIR}"
+temporal-sql-tool --plugin postgres --endpoint "${VISIBILITY_POSTGRES_SEEDS}" --user "${VISIBILITY_POSTGRES_USER}" --password "$VISIBILITY_POSTGRES_PWD" --port "${VISIBILITY_DB_PORT}" --db "${VISIBILITY_DBNAME}" setup-schema -v 0.0
+temporal-sql-tool --plugin postgres --endpoint "${VISIBILITY_POSTGRES_SEEDS}" --user "${VISIBILITY_POSTGRES_USER}" --password "$VISIBILITY_POSTGRES_PWD" --port "${VISIBILITY_DB_PORT}" --db "${VISIBILITY_DBNAME}" update-schema -d "${VISIBILITY_SCHEMA_DIR}"
 
 echo "Setting up namespaces... checking tctl"
 
