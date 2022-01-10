@@ -139,23 +139,23 @@ envVarGroups:
   envVars:
     - key: VISIBILITY_DBNAME
       fromDatabase:
-        name: temporal-visibility
+        name: temporalvisibility
         property: database
     - key: VISIBILITY_DB_PORT
       fromDatabase:
-        name: temporal-visibility
+        name: temporalvisibility
         property: port
     - key: VISIBILITY_POSTGRES_USER
       fromDatabase:
-        name: temporal-visibility
+        name: temporalvisibility
         property: user
     - key: VISIBILITY_POSTGRES_PWD
       fromDatabase:
-        name: temporal-visibility
+        name: temporalvisibility
         property: password
     - key: VISIBILITY_POSTGRES_SEEDS
       fromDatabase:
-        name: temporal-visibility
+        name: temporalvisibility
         property: host
 
 databases:
@@ -163,7 +163,7 @@ databases:
     databaseName: temporal
     user: temporal
     plan: standard
-  - name: temporal-visibility
-    databaseName: temporal-visibility
-    user: temporal-visibility
+  - name: temporalvisibility
+    databaseName: temporalvisibility
+    user: temporalvisibility
     plan: standard
