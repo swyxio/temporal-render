@@ -115,48 +115,48 @@ envVarGroups:
     value: /etc/temporal/dynamicconfig.yaml
 - name: db-vars
   envVars:
-    - key: DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
-    - key: DB_PORT
-      fromDatabase:
-        name: temporal
-        property: port
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
-        property: host
+  - key: DBNAME
+    fromDatabase:
+      name: temporal
+      property: database
+  - key: DB_PORT
+    fromDatabase:
+      name: temporal
+      property: port
+  - key: POSTGRES_USER
+    fromDatabase:
+      name: temporal
+      property: user
+  - key: POSTGRES_PWD
+    fromDatabase:
+      name: temporal
+      property: password
+  - key: POSTGRES_SEEDS
+    fromDatabase:
+      name: temporal
+      property: host
 - name: visibility-db-vars
   envVars:
-    - key: VISIBILITY_DBNAME
-      fromDatabase:
-        name: temporalvisibility
-        property: database
-    - key: VISIBILITY_DB_PORT
-      fromDatabase:
-        name: temporalvisibility
-        property: port
-    - key: VISIBILITY_POSTGRES_USER
-      fromDatabase:
-        name: temporalvisibility
-        property: user
-    - key: VISIBILITY_POSTGRES_PWD
-      fromDatabase:
-        name: temporalvisibility
-        property: password
-    - key: VISIBILITY_POSTGRES_SEEDS
-      fromDatabase:
-        name: temporalvisibility
-        property: host
+  - key: VISIBILITY_DBNAME
+    fromDatabase:
+      name: temporalvisibility
+      property: database
+  - key: VISIBILITY_DB_PORT
+    fromDatabase:
+      name: temporalvisibility
+      property: port
+  - key: VISIBILITY_POSTGRES_USER
+    fromDatabase:
+      name: temporalvisibility
+      property: user
+  - key: VISIBILITY_POSTGRES_PWD
+    fromDatabase:
+      name: temporalvisibility
+      property: password
+  - key: VISIBILITY_POSTGRES_SEEDS
+    fromDatabase:
+      name: temporalvisibility
+      property: host
 
 databases:
   - name: temporal
