@@ -10,11 +10,13 @@ VISIBILITY_SCHEMA_DIR=${TEMPORAL_HOME}/schema/postgresql/v96/visibility/versione
 temporal-sql-tool --plugin postgres --endpoint "${POSTGRES_SEEDS}" --user "${POSTGRES_USER}" --password "$POSTGRES_PWD" --port "${DB_PORT}" --db "${VISIBILITY_DBNAME}" setup-schema -v 0.0
 temporal-sql-tool --plugin postgres --endpoint "${POSTGRES_SEEDS}" --user "${POSTGRES_USER}" --password "$POSTGRES_PWD" --port "${DB_PORT}" --db "${VISIBILITY_DBNAME}" update-schema -d "${VISIBILITY_SCHEMA_DIR}"
 
-echo "Setting up namespaces..."
+echo "Setting up namespaces... checking tctl"
+
+tctl cluster health
 
 until tctl cluster health | grep SERVING; do
     echo "Waiting for Temporal server to start..."
-    sleep 1
+    sleep 10
 done
 echo "Temporal server started."
 echo "Registering default namespace: ${DEFAULT_NAMESPACE}."
