@@ -8,3 +8,4 @@ ENV SQL_TLS_ENABLED=true
 
 # uses Docker context $ROOT/temporal
 COPY config/dynamicconfig.yaml /etc/temporal/dynamicconfig.yaml
+COPY versioned-schema/ /etc/temporal/schema/postgresql/v96/temporal/versioned/

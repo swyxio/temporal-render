@@ -18,10 +18,10 @@ services:
       fromDatabase:
         name: temporal
         property: database
-    - key: VISIBILITY_DBNAME
+    - key: DB_PORT
       fromDatabase:
         name: temporal
-        property: database
+        property: port
     - key: POSTGRES_USER
       fromDatabase:
         name: temporal
@@ -33,6 +33,26 @@ services:
     - key: POSTGRES_SEEDS
       fromDatabase:
         name: temporal
+        property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporalvisibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporalvisibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporalvisibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporalvisibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporalvisibility
         property: host
     - fromGroup: dynamic-config
   - type: pserv
@@ -53,10 +73,10 @@ services:
       fromDatabase:
         name: temporal
         property: database
-    - key: VISIBILITY_DBNAME
+    - key: DB_PORT
       fromDatabase:
         name: temporal
-        property: database
+        property: port
     - key: POSTGRES_USER
       fromDatabase:
         name: temporal
@@ -68,6 +88,26 @@ services:
     - key: POSTGRES_SEEDS
       fromDatabase:
         name: temporal
+        property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporalvisibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporalvisibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporalvisibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporalvisibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporalvisibility
         property: host
     - fromGroup: dynamic-config
   - type: pserv
@@ -88,10 +128,10 @@ services:
       fromDatabase:
         name: temporal
         property: database
-    - key: VISIBILITY_DBNAME
+    - key: DB_PORT
       fromDatabase:
         name: temporal
-        property: database
+        property: port
     - key: POSTGRES_USER
       fromDatabase:
         name: temporal
@@ -103,6 +143,26 @@ services:
     - key: POSTGRES_SEEDS
       fromDatabase:
         name: temporal
+        property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporalvisibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporalvisibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporalvisibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporalvisibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporalvisibility
         property: host
     - fromGroup: dynamic-config
   - type: pserv
@@ -117,21 +177,21 @@ services:
         name: temporal-datadog-agent
         type: pserv
         property: hostport
-#     - key: PUBLIC_FRONTEND_ADDRESS
-#       fromService:
-#         name: temporal-frontend
-#         type: pserv
-#         property: hostport
+    - key: PUBLIC_FRONTEND_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: pserv
+        property: hostport
     - key: SERVICES
       value: worker
     - key: DBNAME
       fromDatabase:
         name: temporal
         property: database
-    - key: VISIBILITY_DBNAME
+    - key: DB_PORT
       fromDatabase:
         name: temporal
-        property: database
+        property: port
     - key: POSTGRES_USER
       fromDatabase:
         name: temporal
@@ -143,6 +203,26 @@ services:
     - key: POSTGRES_SEEDS
       fromDatabase:
         name: temporal
+        property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporalvisibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporalvisibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporalvisibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporalvisibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporalvisibility
         property: host
     - fromGroup: dynamic-config
   - type: pserv
@@ -178,10 +258,6 @@ services:
       fromDatabase:
         name: temporal
         property: database
-    - key: VISIBILITY_DBNAME
-      fromDatabase:
-        name: temporal
-        property: database
     - key: DB_PORT
       fromDatabase:
         name: temporal
@@ -198,6 +274,26 @@ services:
       fromDatabase:
         name: temporal
         property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporalvisibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporalvisibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporalvisibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporalvisibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporalvisibility
+        property: host
     - fromGroup: dynamic-config
 
 envVarGroups:
@@ -207,9 +303,13 @@ envVarGroups:
     value: /etc/temporal/dynamicconfig.yaml
   - key: DYNAMIC_CONFIG_FILE_PATH
     value: /etc/temporal/dynamicconfig.yaml
-
+    
 databases:
   - name: temporal
     databaseName: temporal
     user: temporal
+    plan: standard
+  - name: temporalvisibility
+    databaseName: temporalvisibility
+    user: temporalvisibility
     plan: standard
